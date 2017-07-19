@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   post 'order_complete' => 'cart#order_complete'
   
   devise_for :users
-  get 'users' => 'user#index'
-  post 'users/update' => 'user#update'
+  get 'users' => 'users#index'
+  post 'users/update' => 'users#update'
   
   get 'store_front/all_items'
 
