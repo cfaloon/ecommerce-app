@@ -1,0 +1,31 @@
+<h2>My Cart</h2>
+
+<% if @line_items.any? %>
+<div>
+  <ul>
+  <% @line_items.each do |line_item| %>
+    <li><%= line_item.product.name %></li>
+    <li><%= number_to_currency line_item.product.price %></li>
+    <li>Qty: <%= line_item.quantity %></li>
+    <li>Subtotal: <%= number_to_currency line_item.line_item_total %></li>
+    <li>
+      <%= form_tag line_item_update_path do %>
+      <%= hidden_field_tag :line_item_id, line_item.id %>
+      <%= number_field_tag :quantity, line_item.quantity %>
+      <%= submit_tag 'Change Quantity', class: 'btn btn-warning' %>
+      <% end %>
+    </li>
+    <li><%= link_to 'Remove Line Item', line_item_destroy_path(line_item_id: line_item.id), class: 'btn btn-danger', data: {confirm: 'Are you sure?'}, method: :delete %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+  <%= link_to "Proceed to Checkout?", checkout_path, class: "btn btn-success" %>
+</div>
+
+<% else %>
+<div>
+  <p>Your cart appears to be empty.</p>
+</div>
+<% end %>
